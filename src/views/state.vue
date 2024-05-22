@@ -3,22 +3,18 @@
     <label for="countries" class="block mb-2 text-sm font-medium text-gray-900"
       >Selecione o seu Estado</label
     >
-    <select
-      size="5"
-      name="estado"
-      id="state"
-      class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-    >
-      <option selected>Escolha o seu estado</option>
+
+    <div>
+      {{ value }}
+      <br />
+      <img src="../assets/img/flags/stateAL.svg" />
+    </div>
+    <select size="10" name="estado" id="state" v-model="value">
+      <option disabled>Escolha o seu estado</option>
       <option v-for="state in states" :value="state.acrState">
         {{ state.title }}
       </option>
     </select>
-    <input
-      class="w-36 mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
-      type="submit"
-      value="estado"
-    />
   </form>
 </template>
 
@@ -58,4 +54,10 @@ export default {
     };
   },
 };
+</script>
+
+<script setup>
+import { ref } from "vue";
+
+const value = ref("undefined");
 </script>
