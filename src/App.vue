@@ -2,8 +2,4 @@
 import HelloWorld from "./components/HelloWorld.vue";
 </script>
 
-<template>
-
-
-    .value
-</template>
+<template></template>
