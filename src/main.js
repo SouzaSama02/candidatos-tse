@@ -1,5 +1,7 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import "./style.css";
+import { createApp } from "vue"; // Importando a função para criar a aplicação Vue
 
-createApp(App).mount('#app')
+import App from "./App.vue"; // Importando o componente App
+import router from "./router"; // Importando a biblioteca para roteamento
+
+createApp(App).use(router).mount("#app"); // Criando a aplicação Vue
