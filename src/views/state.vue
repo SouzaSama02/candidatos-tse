@@ -1,31 +1,35 @@
 <template>
-  <form class="max-w-sm mx-auto">
-    <label for="countries" class="block mb-2 text-sm font-medium text-gray-900"
-      >Selecione o seu Estado</label
-    >
-    <select
-      size="5"
-      name="estado"
-      id="state"
-      class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-    >
-      <option selected>Escolha o seu estado</option>
-      <option v-for="state in states" :value="state.acrState">
-        {{ state.title }}
-      </option>
-    </select>
-    <input
-      class="w-36 mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
-      type="submit"
-      value="estado"
-    />
-  </form>
+  <div class="max-w-sm mx-auto">
+    <form>
+      <label for="state" class="block mb-2 text-sm font-medium text-gray-900">
+        Selecione o seu Estado
+      </label>
+      <select
+        v-model="selectedState"
+        @change="updateImage"
+        name="estado"
+        id="state"
+        class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+      >
+        <option value="" disabled>Escolha o seu estado</option>
+        <option v-for="state in states" :key="state.id" :value="state.acrState">
+          {{ state.title }}
+        </option>
+      </select>
+
+      <!-- Div para exibir a imagem baseada no estado selecionado -->
+      <div v-if="selectedState" class="mt-4">
+        <component :is="svgComponent" class="w-full h-auto" />
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
+      selectedState: "", // Variável para armazenar o estado selecionado
       states: [
         { id: 1, acrState: "AC", title: "Acre" },
         { id: 2, acrState: "AL", title: "Alagoas" },
@@ -55,7 +59,28 @@ export default {
         { id: 26, acrState: "SP", title: "São Paulo" },
         { id: 27, acrState: "TO", title: "Tocantins" },
       ],
+      svgComponent: null, // Componente SVG a ser exibido
     };
+  },
+  methods: {
+    async updateImage() {
+      if (this.selectedState) {
+        try {
+          const component = await import(
+            `../assets/img/flags/state${this.selectedState}.vue`
+          );
+          this.svgComponent = component.default || component;
+        } catch (error) {
+          console.error(
+            `Erro ao carregar o componente SVG para o estado ${this.selectedState}:`,
+            error
+          );
+          this.svgComponent = null;
+        }
+      } else {
+        this.svgComponent = null;
+      }
+    },
   },
 };
 </script>
