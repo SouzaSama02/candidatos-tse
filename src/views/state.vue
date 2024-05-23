@@ -1,5 +1,9 @@
 <template>
-  <div class="max-w-sm mx-auto">
+  <div class="max-w-sm mx-auto flex flex-col items-center justify-center">
+    <!-- Div para exibir a imagem baseada no estado selecionado -->
+    <div v-if="selectedState" class="my-10 w-72">
+      <component :is="svgComponent" class="w-full h-auto" />
+    </div>
     <form>
       <label for="state" class="block mb-2 text-sm font-medium text-gray-900">
         Selecione o seu Estado
@@ -16,16 +20,12 @@
           {{ state.title }}
         </option>
       </select>
-
-      <!-- Div para exibir a imagem baseada no estado selecionado -->
-      <div v-if="selectedState" class="mt-4">
-        <component :is="svgComponent" class="w-full h-auto" />
-      </div>
     </form>
   </div>
 </template>
 
 <script>
+import undefined_flagVue from "../assets/img/flags/undefined_flag.vue";
 export default {
   data() {
     return {

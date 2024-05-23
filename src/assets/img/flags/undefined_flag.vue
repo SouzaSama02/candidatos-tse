@@ -6,13 +6,12 @@
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g clip-path="url(#clip0_1_1916)">
-      <path d="M0 0H100V70H0" fill="#00994C" />
-      <path d="M0 0H100L0 70" fill="#F3E718" />
-      <path d="M15 5L20.8 23L5.40002 12H24.6L9.20002 23" fill="#CC0000" />
+    <g clip-path="url(#clip0_106_2)">
+      <path d="M100 0H0V70H100V0Z" fill="white" />
     </g>
+    <rect x="0.5" y="0.5" width="99" height="69" stroke="#ABA5A5" />
     <defs>
-      <clipPath id="clip0_1_1916">
+      <clipPath id="clip0_106_2">
         <rect width="100" height="70" fill="white" />
       </clipPath>
     </defs>
@@ -21,6 +20,6 @@
 
 <script>
 export default {
-  name: "stateAC",
+  name: "undefined_flag",
 };
 </script>
