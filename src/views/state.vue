@@ -21,10 +21,20 @@
         </option>
       </select>
     </form>
+    <button
+      @click="nextStep"
+      class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
+    >
+      Próxima Etapa
+    </button>
+    <p v-if="nextState !== ''" class="mt-4">
+      Estado Selecionado: {{ nextState }}
+    </p>
   </div>
 </template>
 
 <script>
+import { markRaw } from "vue";
 import undefined_flagVue from "../assets/img/flags/undefined_flag.vue";
 export default {
   data() {
@@ -59,17 +69,19 @@ export default {
         { id: 26, acrState: "SP", title: "São Paulo" },
         { id: 27, acrState: "TO", title: "Tocantins" },
       ],
-      svgComponent: null, // Componente SVG a ser exibido
+      svgComponent: null,
+      nextState: "", // Componente SVG a ser exibido
     };
   },
   methods: {
     async updateImage() {
       if (this.selectedState) {
+        this.nextState = this.selectedState;
         try {
           const component = await import(
             `../assets/img/flags/state${this.selectedState}.vue`
           );
-          this.svgComponent = component.default || component;
+          this.svgComponent = markRaw(component.default || component);
         } catch (error) {
           console.error(
             `Erro ao carregar o componente SVG para o estado ${this.selectedState}:`,
@@ -79,6 +91,17 @@ export default {
         }
       } else {
         this.svgComponent = null;
+      }
+    },
+    nextStep() {
+      if (this.selectedState) {
+        console.log("Estado selecionado:", this.selectedState);
+        this.$router.push({
+          name: "ListCandidates",
+          params: { selectedState: this.selectedState },
+        });
+      } else {
+        // Exibir uma mensagem de erro ou lidar com o caso de nenhum estado selecionado
       }
     },
   },

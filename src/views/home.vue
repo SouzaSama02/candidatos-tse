@@ -19,7 +19,18 @@
           >ENTRAR</router-link
         >
         <router-view></router-view>
+        <ListCandidates :selectedState="selectedState" />
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      selectedState: "", // Certifique-se de que selectedState está definido corretamente aqui
+    };
+  },
+};
+</script>

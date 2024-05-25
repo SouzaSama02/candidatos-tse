@@ -1,6 +1,3 @@
-
-<script></script>
-
 <template>
   <div>
     <div class="flex justify-center w-screen mt-36">
