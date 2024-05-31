@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import ListCandidates from "../views/ListCandidates.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,11 +12,6 @@ const router = createRouter({
       path: "/state",
       name: "state",
       component: () => import("../views/state.vue"),
-    },
-    {
-      path: "/list-candidates/:selectedState", // Definindo o parâmetro de rota :selectedState
-      name: "ListCandidates",
-      component: ListCandidates,
     },
   ],
 });

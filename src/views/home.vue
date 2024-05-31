@@ -19,7 +19,6 @@
           >ENTRAR</router-link
         >
         <router-view></router-view>
-        <ListCandidates :selectedState="selectedState" />
       </div>
     </div>
   </div>

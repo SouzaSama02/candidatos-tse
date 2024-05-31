@@ -5,31 +5,47 @@
       <component :is="svgComponent" class="w-full h-auto" />
     </div>
     <form>
-      <label for="state" class="block mb-2 text-sm font-medium text-gray-900">
-        Selecione o seu Estado
-      </label>
-      <select
-        v-model="selectedState"
-        @change="updateImage"
-        name="estado"
-        id="state"
-        class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-      >
-        <option value="" disabled>Escolha o seu estado</option>
-        <option v-for="state in states" :key="state.id" :value="state.acrState">
-          {{ state.title }}
-        </option>
-      </select>
+      <div>
+        <label for="state" class="block mb-2 text-sm font-medium text-gray-900">
+          Selecione o seu Estado
+        </label>
+        <select
+          v-model="selectedState"
+          @change="updateImage"
+          name="estado"
+          id="state"
+          class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        >
+          <option value="" disabled>Escolha o seu estado</option>
+          <option
+            v-for="state in states"
+            :key="state.id"
+            :value="state.acrState"
+          >
+            {{ state.title }}
+          </option>
+        </select>
+      </div>
+      <div>
+        <label for="county">Selecione o municipio</label>
+        <input
+          type="text"
+          name="county"
+          v-model="county"
+          @input="updateCounty"
+        />
+      </div>
+      <div>
+        <label for="name">Nome</label>
+        <input type="text" id="name" v-model="name" @input="updateName" />
+      </div>
     </form>
     <button
-      @click="$emit('nextStep')"
+      @click="emitNextStep"
       class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded"
     >
       Próxima Etapa
     </button>
-    <p v-if="nextState !== ''" class="mt-4">
-      Estado Selecionado: {{ nextState }}
-    </p>
   </div>
 </template>
 
@@ -37,8 +53,13 @@
 import { markRaw } from "vue";
 import undefined_flagVue from "../assets/img/flags/undefined_flag.vue";
 export default {
+  components: {
+    undefined_flagVue,
+  },
   data() {
     return {
+      name: "",
+      county: "",
       selectedState: "", // Variável para armazenar o estado selecionado
       states: [
         { id: 1, acrState: "AC", title: "Acre" },
@@ -69,14 +90,31 @@ export default {
         { id: 26, acrState: "SP", title: "São Paulo" },
         { id: 27, acrState: "TO", title: "Tocantins" },
       ],
-      svgComponent: null,
-      nextState: "", // Componente SVG a ser exibido
+      svgComponent: null, // Componente SVG a ser exibido
     };
   },
   methods: {
+    updateName() {
+      this.$emit("input-changed", {
+        name: this.name,
+        county: this.county,
+        selectedState: this.selectedState,
+      });
+    },
+    updateCounty() {
+      this.$emit("input-changed", {
+        name: this.name,
+        county: this.county,
+        selectedState: this.selectedState,
+      });
+    },
     async updateImage() {
+      this.$emit("input-changed", {
+        name: this.name,
+        county: this.county,
+        selectedState: this.selectedState,
+      });
       if (this.selectedState) {
-        this.nextState = this.selectedState;
         try {
           const component = await import(
             `../assets/img/flags/state${this.selectedState}.vue`
@@ -93,17 +131,13 @@ export default {
         this.svgComponent = null;
       }
     },
-    nextStep() {
-      if (this.selectedState) {
-        console.log("Estado selecionado:", this.selectedState);
-        this.$router.push({
-          name: "ListCandidates",
-          params: { selectedState: this.selectedState },
-        });
-      } else {
-        // Exibir uma mensagem de erro ou lidar com o caso de nenhum estado selecionado
-      }
+    emitNextStep() {
+      this.$emit("next-step");
     },
   },
 };
 </script>
+
+<style>
+/* Adicione seu estilo aqui */
+</style>
