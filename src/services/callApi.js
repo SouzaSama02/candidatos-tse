@@ -15,5 +15,3 @@ export async function callApi(values) {
     console.error(e);
   }
 }
-
-callApi({ estado: "BA", municipio: "xique" });
