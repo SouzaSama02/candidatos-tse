@@ -39,6 +39,3 @@ export default {
 };
 </script>
 
-<style>
-/* Adicione seu estilo aqui */
-</style>
