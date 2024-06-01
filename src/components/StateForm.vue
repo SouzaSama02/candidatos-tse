@@ -1,12 +1,12 @@
 <template>
-  <div class="max-w-sm mx-auto flex flex-col items-center justify-center">
+  <div class="max-w-sm mx-auto flex flex-col items-center justify-center p-4">
     <!-- Div para exibir a imagem baseada no estado selecionado -->
-    <div v-if="selectedState" class="my-10 w-72">
+    <div v-if="selectedState" class="my-10 w-52">
       <component :is="svgComponent" class="w-full h-auto" />
     </div>
-    <form>
+    <form class="w-full space-y-6">
       <div>
-        <label for="state" class="block mb-2 text-sm font-medium text-gray-900">
+        <label for="state" class="block mb-2 text-sm font-medium">
           Selecione o seu Estado
         </label>
         <select
@@ -27,17 +27,27 @@
         </select>
       </div>
       <div>
-        <label for="county">Selecione o municipio</label>
+        <label for="county" class="block mb-2 text-sm font-medium"
+          >Selecione o município</label
+        >
         <input
           type="text"
           name="county"
+          id="county"
           v-model="county"
           @input="updateCounty"
+          class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         />
       </div>
       <div>
-        <label for="name">Nome</label>
-        <input type="text" id="name" v-model="name" @input="updateName" />
+        <label for="name" class="block mb-2 text-sm font-medium">Nome</label>
+        <input
+          type="text"
+          id="name"
+          v-model="name"
+          @input="updateName"
+          class="border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        />
       </div>
     </form>
     <button
