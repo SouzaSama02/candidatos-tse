@@ -10,7 +10,7 @@ export async function callApi(values) {
 
   try {
     const response = await axios.get(apiUrl);
-    console.log(response.data);
+    return response.data.candidatos;
   } catch (e) {
     console.error(e);
   }
